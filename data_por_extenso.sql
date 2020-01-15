@@ -1,0 +1,47 @@
+DECLARE @DATA_ENTRADA DATE
+DECLARE @DATA_SAIDA VARCHAR(50)
+DECLARE @MES VARCHAR(30)
+DECLARE @DIA_SEMANA VARCHAR(30)
+
+SET @DATA_ENTRADA = '2019-01-14'
+
+
+--DIA DA SEMANA
+SET @DIA_SEMANA = CASE 
+                       WHEN DATEPART(WEEKDAY,@DATA_ENTRADA) = 1 THEN 'Domingo'
+					             WHEN DATEPART(WEEKDAY,@DATA_ENTRADA) = 2 THEN 'Segunda-Feira'
+					             WHEN DATEPART(WEEKDAY,@DATA_ENTRADA) = 3 THEN 'Terça-Feira'
+					             WHEN DATEPART(WEEKDAY,@DATA_ENTRADA) = 4 THEN 'Quarta-Feira'
+					             WHEN DATEPART(WEEKDAY,@DATA_ENTRADA) = 5 THEN 'Quinta-Feira'
+					             WHEN DATEPART(WEEKDAY,@DATA_ENTRADA) = 6 THEN 'Sexta-Feira'
+					             WHEN DATEPART(WEEKDAY,@DATA_ENTRADA) = 7 THEN 'Sabado'
+					   END
+
+SET @DATA_SAIDA = @DIA_SEMANA + ' '
+
+--DIA
+SET  @DATA_SAIDA = @DATA_SAIDA + RIGHT('00' + CAST(DAY(@DATA_ENTRADA) AS VARCHAR(2)),2) + ' de' 
+
+--MES
+SET @MES = CASE  
+                WHEN MONTH(@DATA_ENTRADA) = 1  THEN 'Janeiro'
+				        WHEN MONTH(@DATA_ENTRADA) = 2  THEN 'Fevereiro'
+				        WHEN MONTH(@DATA_ENTRADA) = 3  THEN 'Março'
+				        WHEN MONTH(@DATA_ENTRADA) = 4  THEN 'Abril'
+				        WHEN MONTH(@DATA_ENTRADA) = 5  THEN 'Maio'
+				        WHEN MONTH(@DATA_ENTRADA) = 6  THEN 'Junho'
+				        WHEN MONTH(@DATA_ENTRADA) = 7  THEN 'Julho'
+				        WHEN MONTH(@DATA_ENTRADA) = 8  THEN 'Agosto'
+				        WHEN MONTH(@DATA_ENTRADA) = 9  THEN 'Setembro'
+				        WHEN MONTH(@DATA_ENTRADA) = 10 THEN 'Outubro'
+				        WHEN MONTH(@DATA_ENTRADA) = 11 THEN 'Novembro'
+			 	        WHEN MONTH(@DATA_ENTRADA) = 12 THEN 'Dezembro'
+				END
+
+
+SET @DATA_SAIDA = @DATA_SAIDA  +' ' +@MES +' de'
+
+--ANO
+SET @DATA_SAIDA = @DATA_SAIDA + ' ' + CAST(YEAR(@DATA_ENTRADA) AS VARCHAR(30))
+
+SELECT @DATA_SAIDA
