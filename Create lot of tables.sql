@@ -29,7 +29,7 @@ SET @SQL_DINAMICO = ' SELECT ID_CAMPANHA,
                              CPF,
                              EMAIL,
                              CATEGORIA AS SEGMENTO 
-                       INTO [Electrolux_001_DBM].dbo.' + @NOME_TABELA + '
+                       INTO [NOME_BANCO].dbo.' + @NOME_TABELA + '
                        FROM TB_REGISTROS_CAMPANHA WITH (NOLOCK) 
                        WHERE ID_CAMPANHA = ' + CAST(@ID_CAMPANNHA_INICIO AS VARCHAR(255))
 EXEC (@SQL_DINAMICO)
